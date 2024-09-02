@@ -46,3 +46,5 @@ group :development do
 end
 
 gem "mysql2", "~> 0.5.6"
+
+gem "dotenv-rails", "~> 3.1"
