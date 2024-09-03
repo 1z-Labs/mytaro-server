@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  resources :categories, only: [:index] # category
+  # category
+  resources :categories, only: [:index]
+
+  # /contents/:contents_id/reviews
+  resources :contents do
+    resources :reviews, only:[:index]
+  end
 end
