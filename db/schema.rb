@@ -10,27 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_03_052535) do
-  create_table "Category", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "icon", null: false
-  end
-
-  create_table "Chapter", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "index", null: false
-    t.string "content", null: false
-    t.string "contentId"
-    t.index ["contentId"], name: "contentId"
-  end
-
-  create_table "Content", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "description"
-    t.string "imagePath", null: false
-    t.string "content", null: false
-    t.integer "clover", null: false
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2024_09_03_070409) do
   create_table "ContentCategory", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "contentId"
     t.string "categoryId"
@@ -68,13 +48,46 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_03_052535) do
     t.boolean "isBeforePurchased", default: false, null: false
   end
 
-  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "categories", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "icon"
+  end
+
+  create_table "contents", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "subtitle"
+    t.string "description"
+    t.string "imagePath", null: false
+    t.string "content", null: false
+    t.integer "clover", null: false
+  end
+
+  create_table "my_infos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "gender"
+    t.date "birthday"
+    t.time "birthClock"
+    t.string "pName"
+    t.integer "pGender"
+    t.date "pBirthday"
+    t.time "pBirthClock"
+    t.string "userId"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "Chapter", "Content", column: "contentId", name: "Chapter_ibfk_1"
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.integer "gender"
+    t.date "birthday"
+    t.time "birthtime"
+    t.string "pname"
+    t.integer "pgender"
+    t.date "pbirthday"
+    t.time "pbirthtime"
+    t.integer "userId"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "InputInfo", "User", column: "userId", name: "InputInfo_ibfk_1"
 end
