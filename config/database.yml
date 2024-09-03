@@ -10,12 +10,12 @@ default: &default
 
 development:
   <<: *default
-  database: test
+  database: mytarot
 
 test:
   <<: *default
-  database: test
+  database: mytarot
 
 production:
   <<: *default
-  database: test
+  database: mytarot
