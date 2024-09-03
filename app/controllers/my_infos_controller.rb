@@ -1,5 +1,5 @@
 class MyInfosController < ApplicationController
-  before_action :set_my_info, only: [:show, :edit, :update, :destroy, :show_p_fields, :show_non_p_fields]
+  before_action :set_my_info, only: [:show, :destroy, :show_p_fields, :show_non_p_fields]
 
 
   #Get /my_infos
@@ -25,16 +25,17 @@ class MyInfosController < ApplicationController
     render json: @my_info
   end
 
-  #p로 시작되는 필드만 반환시킨다.
+  #상대방의 정보를 반환한다.
   #Get /my_infos/:id/non_p_fields
   def show_p_fields
     render json: @my_info.slice(:pName, :pGender, :pBirthday, :pBirthtime)
   end
 
-  #PATCH/PUT /my_infos/:id
+
+  #내 정보를 반환
   # GET /my_infos/:id/non_p_fields
   def show_non_p_fields
-    render json: @my_info.slice(:gender, :birthday, :birthtime, :userId)
+    render json: @my_info.slice(:gender, :birthday, :birthtime,:user_id)
   end
 
   #DELETE /my_infos/:id
@@ -48,6 +49,6 @@ class MyInfosController < ApplicationController
   end
 
   def my_info_params
-    params.require(:my_info).permit(:gender, :birthday, :birthtime, :pName, :pGender, :pBirthday, :pBirthtime)
+    params.require(:my_info).permit(:gender, :birthday, :birthtime, :pName, :pGender, :pBirthday, :pBirthtime, :user_id)
   end
 end
