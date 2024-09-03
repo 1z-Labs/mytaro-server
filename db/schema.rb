@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_03_052535) do
   create_table "Category", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "icon", null: false
@@ -66,6 +66,13 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.string "nickname", null: false
     t.string "phone", null: false
     t.boolean "isBeforePurchased", default: false, null: false
+  end
+
+  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "Chapter", "Content", column: "contentId", name: "Chapter_ibfk_1"
