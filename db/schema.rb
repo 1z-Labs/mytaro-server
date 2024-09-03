@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_03_075818) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_03_081304) do
   create_table "categories", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "icon"
@@ -39,10 +39,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_03_075818) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reviews", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "review"
+    t.string "author"
+    t.string "contentId"
+    t.string "authorId"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authorId"], name: "fk_rails_eee972c45c"
+    t.index ["contentId"], name: "fk_rails_908da70a07"
+  end
+
   create_table "users", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "nickname"
     t.string "phone"
     t.boolean "isBeforePurchased", default: false
   end
 
+  add_foreign_key "reviews", "contents", column: "contentId"
+  add_foreign_key "reviews", "users", column: "authorId"
 end
