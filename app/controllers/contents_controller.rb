@@ -9,6 +9,20 @@ class ContentsController < ApplicationController
     render json: contents
   end
 
+  # 특정 id를 가진 컨텐츠를 조회하는 API
+  def show
+    # 전달받은 id 값으로 컨텐츠 찾기
+    content = Content.find_by(id: params[:id])
+
+    # 컨텐츠가 존재하지 않을 경우 404 에러 반환
+    if content.nil?
+      render json: { error: 'Content not found' }, status: :not_found
+    else
+      # 컨텐츠가 존재하면 해당 컨텐츠를 JSON 형태로 반환
+      render json: content
+    end
+  end
+
   # 카테고리별로 콘텐츠를 리뷰 수에 따라 정렬하는 API
   def index_by_reviews
     category_id = params[:category_id]  # 전달받은 카테고리 ID
