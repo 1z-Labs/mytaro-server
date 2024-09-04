@@ -217,6 +217,8 @@ DEPENDENCIES
   rails (= 7.0.4)
   rspec-rails (~> 7.0)
   rswag (~> 2.14)
+  rswag-api
+  rswag-ui
   ruby_lunardate (~> 0.1.1)
   tzinfo-data
 
