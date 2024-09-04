@@ -210,6 +210,309 @@ paths:
                   - review_count
         '404':
           description: 콘텐츠가 없습니다.
+  "/my_infos":
+    get:
+      summary: 모든 my_infos 조회
+      tags:
+      - MyInfos
+      responses:
+        '200':
+          description: 모든 my_infos 조회
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/MyInfo"
+    post:
+      summary: my_info 생성
+      tags:
+      - MyInfos
+      parameters: []
+      responses:
+        '201':
+          description: my_info 생성
+        '422':
+          description: 잘못된 요청일 경우 오류 메시지를 반환
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/MyInfo"
+  "/my_infos/{id}":
+    get:
+      summary: 특정 my_info를 조회
+      tags:
+      - MyInfos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 특정 my_info를 조회
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MyInfo"
+        '404':
+          description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+    delete:
+      summary: my_info 삭제
+      tags:
+      - MyInfos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: my_info 삭제
+        '404':
+          description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
+  "/my_infos/{id}/answer":
+    get:
+      summary: 특정 my_info의 답변을 조회
+      tags:
+      - MyInfos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 특정 my_info의 답변을 조회
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  answer:
+                    type: string
+                required:
+                - id
+                - answer
+        '404':
+          description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+  "/my_infos/{id}/p_fields":
+    get:
+      summary: 상대방 정보 조회
+      tags:
+      - MyInfos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 상대방 정보 조회
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pName:
+                    type: string
+                  pBirthday:
+                    type: string
+                    format: date
+                  pBirthtime:
+                    type: string
+                  p_lunar_birthday:
+                    type: object
+                    properties:
+                      year:
+                        type: integer
+                      month:
+                        type: integer
+                      day:
+                        type: integer
+                      is_leap_month:
+                        type: boolean
+                    required:
+                    - year
+                    - month
+                    - day
+                    - is_leap_month
+                required:
+                - pName
+                - pBirthday
+                - pBirthtime
+                - p_lunar_birthday
+        '404':
+          description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+  "/my_infos/{id}/non_p_fields":
+    get:
+      summary: 사용자 정보 조회
+      tags:
+      - MyInfos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 사용자 정보 조회
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gender:
+                    type: string
+                  birthday:
+                    type: string
+                    format: date
+                  birthtime:
+                    type: string
+                  user_id:
+                    type: integer
+                  user_lunar_birthday:
+                    type: object
+                    properties:
+                      year:
+                        type: integer
+                      month:
+                        type: integer
+                      day:
+                        type: integer
+                      is_leap_month:
+                        type: boolean
+                    required:
+                    - year
+                    - month
+                    - day
+                    - is_leap_month
+                required:
+                - gender
+                - birthday
+                - birthtime
+                - user_id
+                - user_lunar_birthday
+        '404':
+          description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+  "/my_infos/{id}/p_saju":
+    get:
+      summary: 특정 my_info의 p_saju를 조회
+      tags:
+      - MyInfos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 특정 my_info의 p_saju를 조회
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pName:
+                    type: string
+                  p_saju:
+                    type: string
+                required:
+                - pName
+                - p_saju
+        '404':
+          description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+  "/my_infos/{id}/user_saju":
+    get:
+      summary: 사용자 정보 조회
+      tags:
+      - MyInfos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 사용자 정보 조회
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gender:
+                    type: string
+                  user_saju:
+                    type: string
+                required:
+                - gender
+                - user_saju
+        '404':
+          description: 사용자를 찾을 수 없는 경우 오류 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
   "/contents/{content_id}/reviews":
     parameters:
     - name: content_id
