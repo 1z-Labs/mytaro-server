@@ -5,6 +5,10 @@ class Review < ApplicationRecord
   before_create :generate_uuid
   before_save :set_author_name
 
+  def as_json(options = {})
+    super(only: [:id, :review, :author, :contentId, :authorId, :created_at, :updated_at])
+  end
+
   private
 
   def generate_uuid
