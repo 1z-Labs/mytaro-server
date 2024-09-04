@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   resources :categories, only: [:index]
 
   # /contents/:contents_id/reviews
-  resources :contents do
+  resources :contents, only: []do
     resources :reviews, only:[:index]
   end
 
+  # /contents/popular
+  get '/contents/popular', to: 'contents#popular'
 
   resources :my_infos do
     member do
