@@ -25,8 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_03_151828) do
     t.integer "clover", null: false
   end
 
-  create_table "my_infos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
+  create_table "my_infos", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "gender"
     t.date "birthday"
     t.time "birthtime"
@@ -34,9 +33,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_03_151828) do
     t.integer "pGender"
     t.date "pBirthday"
     t.time "pBirthtime"
-    t.string "user_id"
+    t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "fk_rails_d6e0031ebe"
   end
 
   create_table "reviews", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_03_151828) do
     t.boolean "isBeforePurchased", default: false
   end
 
+  add_foreign_key "my_infos", "users"
   add_foreign_key "reviews", "contents", column: "contentId"
   add_foreign_key "reviews", "users", column: "authorId"
 end
