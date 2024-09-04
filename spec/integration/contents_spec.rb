@@ -38,4 +38,38 @@ RSpec.describe 'Contents API', type: :request do
       end
     end
   end
+
+  path '/contents/category/{category_id}/reviews' do
+    get '카테고리별 인기 많은 순으로 컨텐츠를 가져옵니다.' do
+      tags 'Contents'
+      consumes 'application/json'
+      produces 'application/json'
+      parameter name: :category_id, in: :path, type: :string, description: 'Category ID'
+
+      response '200', 'contents found' do
+        schema type: :array,
+               items: {
+                 type: :object,
+                 properties: {
+                   id: { type: :string },
+                   title: { type: :string },
+                   subtitle: { type: :string },
+                   description: { type: :string },
+                   imagePath: { type: :string },
+                   content: { type: :string },
+                   clover: { type: :integer },
+                   review_count: { type: :integer }
+                 },
+                 required: ['id', 'title', 'subtitle', 'description', 'imagePath', 'content', 'clover', 'review_count']
+               }
+
+        run_test!
+      end
+
+      response '404', 'category not found' do
+        let(:category_id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
 end
