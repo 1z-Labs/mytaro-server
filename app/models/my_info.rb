@@ -3,4 +3,5 @@ class MyInfo < ApplicationRecord
 
   #user_id가 반드시 존재해야 한다는 유효성 검사
   validates :user_id, presence: true
+
 end

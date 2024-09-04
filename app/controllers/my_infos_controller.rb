@@ -32,7 +32,7 @@ class MyInfosController < ApplicationController
   end
 
 
-  #내 정보를 반환
+  # 내 정보를 반환
   # GET /my_infos/:id/non_p_fields
   def show_non_p_fields
     render json: @my_info.slice(:gender, :birthday, :birthtime,:user_id)
