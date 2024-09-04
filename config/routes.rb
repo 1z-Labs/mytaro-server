@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
+
+  # 전체 콘텐츠를 리뷰 수에 따라 정렬하는 라우트
+  get 'contents/reviews', to: 'contents#index_all_by_reviews'
+
   # category
   resources :categories, only: [:index]
+
+  # 카테고리별로 모든 콘텐츠를 가져오는 라우트
+  get 'contents/category/:category_id', to: 'contents#index_by_category'
 
   # /contents/:contents_id/reviews
   resources :contents, only: [:show] do
@@ -21,6 +28,7 @@ Rails.application.routes.draw do
       get 'p_fields', to: 'my_infos#show_p_fields'
       # GET /my_infos/:id/non_p_fields
       get 'non_p_fields', to: 'my_infos#show_non_p_fields'
+      get 'saju'
     end
   end
 end
