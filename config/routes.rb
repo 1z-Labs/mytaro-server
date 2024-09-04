@@ -8,9 +8,13 @@ Rails.application.routes.draw do
   resources :contents do
     resources :reviews, only:[:index]
   end
+
+
   resources :my_infos do
     member do
+      # GET /my_infos/:id/p_fields
       get 'p_fields', to: 'my_infos#show_p_fields'
+      # GET /my_infos/:id/non_p_fields
       get 'non_p_fields', to: 'my_infos#show_non_p_fields'
     end
   end
