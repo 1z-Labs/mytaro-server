@@ -6,8 +6,8 @@ class CreateMyInfos < ActiveRecord::Migration[7.0]
       t.time :birthtime, null: false
       t.string :pName
       t.integer :pGender
-      t.date :pBirthday, null:false
-      t.time :pBirthtime, null:false
+      t.date :pBirthday
+      t.time :pBirthtime
       t.string :user_id, null: false
 
       t.timestamps

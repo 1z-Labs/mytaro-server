@@ -1,6 +1,6 @@
 # app/controllers/my_infos_controller.rb
 class MyInfosController < ApplicationController
-  before_action :set_my_info, only: [:show, :destroy, :show_p_fields, :show_non_p_fields, :show_p_saju, :show_user_saju]
+  before_action :set_my_info, only: [:show, :destroy, :show_p_fields, :show_non_p_fields, :show_p_saju, :show_user_saju, :show_answer]
   include SajuHelper  # Include the SajuHelper module
 
   # GET /my_infos
@@ -23,6 +23,14 @@ class MyInfosController < ApplicationController
   # GET /my_infos/:id
   def show
     render json: @my_info
+  end
+
+  # GET /my_infos/:id/answer
+  def show_answer
+    render json: {
+      id: @my_info.id,
+      answer: @my_info.answer
+    }
   end
 
   # 상대방의 정보를 반환한다.
@@ -103,6 +111,6 @@ class MyInfosController < ApplicationController
   end
 
   def my_info_params
-    params.require(:my_info).permit(:gender, :birthday, :birthtime, :pName, :pGender, :pBirthday, :pBirthtime, :user_id)
+    params.require(:my_info).permit(:gender, :birthday, :birthtime, :pName, :pGender, :pBirthday, :pBirthtime, :user_id, :answer)
   end
 end
