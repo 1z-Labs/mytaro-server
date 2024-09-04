@@ -123,6 +123,26 @@
         <option value="migration" />
         <option value="model" />
         <option value="resource" />
+        <option value="rspec:channel" />
+        <option value="rspec:controller" />
+        <option value="rspec:feature" />
+        <option value="rspec:generator" />
+        <option value="rspec:helper" />
+        <option value="rspec:install" />
+        <option value="rspec:job" />
+        <option value="rspec:mailbox" />
+        <option value="rspec:mailer" />
+        <option value="rspec:model" />
+        <option value="rspec:request" />
+        <option value="rspec:scaffold" />
+        <option value="rspec:swagger" />
+        <option value="rspec:system" />
+        <option value="rspec:view" />
+        <option value="rswag:api:install" />
+        <option value="rswag:install" />
+        <option value="rswag:specs:install" />
+        <option value="rswag:ui:custom" />
+        <option value="rswag:ui:install" />
         <option value="scaffold" />
         <option value="scaffold_controller" />
         <option value="system_test" />
@@ -160,6 +180,26 @@
         <option value="migration" />
         <option value="model" />
         <option value="resource" />
+        <option value="rspec:channel" />
+        <option value="rspec:controller" />
+        <option value="rspec:feature" />
+        <option value="rspec:generator" />
+        <option value="rspec:helper" />
+        <option value="rspec:install" />
+        <option value="rspec:job" />
+        <option value="rspec:mailbox" />
+        <option value="rspec:mailer" />
+        <option value="rspec:model" />
+        <option value="rspec:request" />
+        <option value="rspec:scaffold" />
+        <option value="rspec:swagger" />
+        <option value="rspec:system" />
+        <option value="rspec:view" />
+        <option value="rswag:api:install" />
+        <option value="rswag:install" />
+        <option value="rswag:specs:install" />
+        <option value="rswag:ui:custom" />
+        <option value="rswag:ui:install" />
         <option value="scaffold" />
         <option value="scaffold_controller" />
         <option value="system_test" />
@@ -447,7 +487,30 @@
           </RakeTaskImpl>
           <RakeTaskImpl description="Prints out your Rack middleware stack" fullCommand="middleware" id="middleware" />
           <RakeTaskImpl description="Restart app by touching tmp/restart.txt" fullCommand="restart" id="restart" />
+          <RakeTaskImpl id="rswag">
+            <subtasks>
+              <RakeTaskImpl id="specs">
+                <subtasks>
+                  <RakeTaskImpl description="Generate Swagger JSON files from integration specs" fullCommand="rswag:specs:swaggerize" id="swaggerize" />
+                </subtasks>
+              </RakeTaskImpl>
+              <RakeTaskImpl id="ui">
+                <subtasks>
+                  <RakeTaskImpl description="TODO" fullCommand="rswag:ui:copy_assets[dest]" id="copy_assets[dest]" />
+                  <RakeTaskImpl description="" fullCommand="rswag:ui:copy_assets" id="copy_assets" />
+                </subtasks>
+              </RakeTaskImpl>
+            </subtasks>
+          </RakeTaskImpl>
           <RakeTaskImpl description="Generate a cryptographically secure secret key (this is typically used to generate a secret for cookie sessions)" fullCommand="secret" id="secret" />
+          <RakeTaskImpl description="Run all specs in spec directory (excluding plugin specs)" fullCommand="spec" id="spec" />
+          <RakeTaskImpl id="spec">
+            <subtasks>
+              <RakeTaskImpl description="Run the code examples in spec/integration" fullCommand="spec:integration" id="integration" />
+              <RakeTaskImpl description="" fullCommand="spec:prepare" id="prepare" />
+              <RakeTaskImpl description="" fullCommand="spec:statsetup" id="statsetup" />
+            </subtasks>
+          </RakeTaskImpl>
           <RakeTaskImpl description="Report code statistics (KLOCs, etc) from the application or engine" fullCommand="stats" id="stats" />
           <RakeTaskImpl description="Runs all tests in test folder except system ones" fullCommand="test" id="test" />
           <RakeTaskImpl id="test">
@@ -535,6 +598,7 @@
               </RakeTaskImpl>
             </subtasks>
           </RakeTaskImpl>
+          <RakeTaskImpl description="" fullCommand="rswag" id="rswag" />
           <RakeTaskImpl description="" fullCommand="tmp" id="tmp" />
           <RakeTaskImpl description="" fullCommand="tmp/cache" id="tmp/cache" />
           <RakeTaskImpl description="" fullCommand="tmp/cache/assets" id="tmp/cache/assets" />
