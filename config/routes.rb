@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       get 'p_fields', to: 'my_infos#show_p_fields'
       # GET /my_infos/:id/non_p_fields
       get 'non_p_fields', to: 'my_infos#show_non_p_fields'
+      get 'saju'
     end
   end
 end
