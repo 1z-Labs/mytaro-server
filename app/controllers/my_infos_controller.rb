@@ -28,7 +28,7 @@ class MyInfosController < ApplicationController
   #상대방의 정보를 반환한다.
   #Get /my_infos/:id/non_p_fields
   def show_p_fields
-    render json: @my_info.slice(:pName, :pGender, :pBirthday, :pBirthtime)
+    render json: @my_info.slice(:pName, :pBirthday, :pBirthtime)
   end
 
 
