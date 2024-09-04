@@ -31,6 +31,54 @@ paths:
                   - icon
         '404':
           description: 카테고리를 찾을 수 없습니다.
+  "/contents/{content_id}/reviews":
+    parameters:
+    - name: content_id
+      in: path
+      description: Content ID
+      required: true
+      schema:
+        type: string
+    get:
+      summary: 해당 사주 컨텐츠의 리뷰 정보를 가져옵니다.
+      tags:
+      - Reviews
+      responses:
+        '200':
+          description: 해당 컨텐츠의 리뷰를 가져옵니다.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    review:
+                      type: string
+                    author:
+                      type: string
+                    contentId:
+                      type: string
+                    authorId:
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+                  required:
+                  - id
+                  - review
+                  - author
+                  - contentId
+                  - authorId
+                  - created_at
+                  - updated_at
+        '404':
+          description: 리뷰를 찾을 수 없습니다.
 servers:
 - url: https://{defaultHost}
   variables:
