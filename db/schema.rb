@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2024_09_04_080217) do
+=======
+
+
+
+ActiveRecord::Schema[7.0].define(version: 2024_09_04_051929) do
+>>>>>>> a069db75bd487fc01809c30e5d4a729238706265
   create_table "categories", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "icon"

@@ -77,6 +77,139 @@ paths:
                 properties:
                   message:
                     type: string
+  "/contents/category/{category_id}/reviews":
+    get:
+      summary: 카테고리별 인기 많은 순으로 컨텐츠를 가져옵니다.
+      tags:
+      - Contents
+      parameters:
+      - name: category_id
+        in: path
+        description: Category ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: contents found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    subtitle:
+                      type: string
+                    description:
+                      type: string
+                    imagePath:
+                      type: string
+                    content:
+                      type: string
+                    clover:
+                      type: integer
+                    review_count:
+                      type: integer
+                  required:
+                  - id
+                  - title
+                  - subtitle
+                  - description
+                  - imagePath
+                  - content
+                  - clover
+                  - review_count
+        '404':
+          description: category not found
+  "/contents/{id}":
+    get:
+      summary: 특정 컨텐츠 정보를 가져옵니다.
+      tags:
+      - Contents
+      parameters:
+      - name: id
+        in: path
+        description: Content ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: content found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  subtitle:
+                    type: string
+                  description:
+                    type: string
+                  imagePath:
+                    type: string
+                  content:
+                    type: string
+                  clover:
+                    type: integer
+                required:
+                - id
+                - title
+                - imagePath
+                - content
+                - clover
+        '404':
+          description: content not found
+  "/contents/reviews":
+    get:
+      summary: 전체 컨텐츠를 리뷰 수 기준으로 가져옵니다.
+      tags:
+      - Contents
+      responses:
+        '200':
+          description: 정렬된 컨텐츠를 가져옵니다.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    subtitle:
+                      type: string
+                    description:
+                      type: string
+                    imagePath:
+                      type: string
+                    content:
+                      type: string
+                    clover:
+                      type: integer
+                    review_count:
+                      type: integer
+                  required:
+                  - id
+                  - title
+                  - subtitle
+                  - description
+                  - imagePath
+                  - content
+                  - clover
+                  - review_count
+        '404':
+          description: 콘텐츠가 없습니다.
   "/contents/{content_id}/reviews":
     parameters:
     - name: content_id
