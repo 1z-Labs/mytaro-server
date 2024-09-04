@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   # category
   resources :categories, only: [:index]
 
+  # 카테고리별로 모든 콘텐츠를 가져오는 라우트
+  get 'contents/category/:category_id', to: 'contents#index_by_category'
+
   # /contents/:contents_id/reviews
   resources :contents, only: [:show] do
     resources :reviews, only:[:index]
