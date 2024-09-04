@@ -1,6 +1,6 @@
 class ContentsController < ApplicationController
   def popular
-    # 리뷰 수의 조건을 200으로 바꿀 것
+    # 리뷰 수의 조건을 200으로 바꿀 것 (200개 이상의 후기가 증명! 컨테이너)
     contents = Content.joins(:reviews)
                               .group('contents.id')
                               .having('COUNT(reviews.id) >= ?', 5)
@@ -9,7 +9,7 @@ class ContentsController < ApplicationController
     render json: contents
   end
 
-  # 특정 id를 가진 컨텐츠를 조회하는 API
+  # 특정 id를 가진 컨텐츠를 조회하는 API (사주 상세페이지)
   def show
     # 전달받은 id 값으로 컨텐츠 찾기
     content = Content.find_by(id: params[:id])
@@ -23,7 +23,7 @@ class ContentsController < ApplicationController
     end
   end
 
-  # 리뷰 수 기준으로 전체 콘텐츠를 정렬하는 API
+  # 리뷰 수 기준으로 전체 콘텐츠를 정렬하는 API (마이타로 베스트 종합버튼)
   def index_all_by_reviews
     # 모든 콘텐츠를 가져오고, 리뷰 수 기준으로 정렬
     contents = Content
@@ -35,7 +35,7 @@ class ContentsController < ApplicationController
     render json: contents, methods: [:review_count]
   end
 
-  # 카테고리별로 콘텐츠를 리뷰 수에 따라 정렬하는 API
+  # 카테고리별로 콘텐츠를 리뷰 수에 따라 정렬하는 API (마이타로 베스트(카테고리) / 솔로탈출 베스트)
   def index_by_reviews
     category_id = params[:category_id]  # 전달받은 카테고리 ID
 
@@ -51,5 +51,17 @@ class ContentsController < ApplicationController
 
     # 3. 정렬된 콘텐츠를 반환 (리뷰 수와 함께)
     render json: contents_with_reviews, methods: [:review_count]
+  end
+
+  # 카테고리별로 모든 콘텐츠를 가져오는 API
+  def index_by_category
+    category_id = params[:category_id]  # 전달받은 카테고리 ID
+
+    # 해당 카테고리에 속하는 모든 콘텐츠 가져오기
+    contents = Content.joins(:content_categories)
+                      .where(content_categories: { category_id: category_id })
+
+    # 콘텐츠들을 반환
+    render json: contents
   end
 end
