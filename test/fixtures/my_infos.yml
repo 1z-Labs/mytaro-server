@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  gender: 1
+  birthday: 2024-09-03
+  birthtime: 2024-09-03 20:37:03
+  pName: MyString
+  pGender: 1
+  pBirthday: 2024-09-03
+  pBirthtime: 2024-09-03 20:37:03
+  userId: MyString
+
+two:
+  name: MyString
+  gender: 1
+  birthday: 2024-09-03
+  birthtime: 2024-09-03 20:37:03
+  pName: MyString
+  pGender: 1
+  pBirthday: 2024-09-03
+  pBirthtime: 2024-09-03 20:37:03
+  userId: MyString

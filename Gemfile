@@ -48,3 +48,7 @@ end
 gem "mysql2", "~> 0.5.6"
 
 gem "dotenv-rails", "~> 3.1"
+
+gem "rswag", "~> 2.14"
+
+gem "rspec-rails", "~> 7.0"
