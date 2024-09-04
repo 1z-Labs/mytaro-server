@@ -23,6 +23,18 @@ class ContentsController < ApplicationController
     end
   end
 
+  # 리뷰 수 기준으로 전체 콘텐츠를 정렬하는 API
+  def index_all_by_reviews
+    # 모든 콘텐츠를 가져오고, 리뷰 수 기준으로 정렬
+    contents = Content
+                 .left_joins(:reviews)    # 콘텐츠와 리뷰를 LEFT JOIN
+                 .group('contents.id')    # 각 콘텐츠별로 그룹화
+                 .order('COUNT(reviews.id) DESC')  # 리뷰 수 기준 내림차순 정렬
+
+    # 정렬된 콘텐츠를 반환 (리뷰 수와 함께)
+    render json: contents, methods: [:review_count]
+  end
+
   # 카테고리별로 콘텐츠를 리뷰 수에 따라 정렬하는 API
   def index_by_reviews
     category_id = params[:category_id]  # 전달받은 카테고리 ID

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
+
+  # 전체 콘텐츠를 리뷰 수에 따라 정렬하는 라우트
+  get 'contents/reviews', to: 'contents#index_all_by_reviews'
+
   # category
   resources :categories, only: [:index]
 
