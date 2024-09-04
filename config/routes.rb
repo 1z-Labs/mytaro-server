@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:index]
 
   # /contents/:contents_id/reviews
-  resources :contents, only: []do
+  resources :contents, only: [:show] do
     resources :reviews, only:[:index]
   end
 
