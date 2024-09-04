@@ -1,7 +1,7 @@
-require 'ruby_lunardate'
-
+# app/controllers/my_infos_controller.rb
 class MyInfosController < ApplicationController
-  before_action :set_my_info, only: [:show, :destroy, :show_p_fields, :show_non_p_fields]
+  before_action :set_my_info, only: [:show, :destroy, :show_p_fields, :show_non_p_fields, :show_p_saju, :show_user_saju]
+  include SajuHelper  # Include the SajuHelper module
 
   # GET /my_infos
   def index
@@ -28,7 +28,6 @@ class MyInfosController < ApplicationController
   # 상대방의 정보를 반환한다.
   # GET /my_infos/:id/p_fields
   def show_p_fields
-    # 상대방 생일 음력으로 변환
     p_solar_birthday = @my_info.pBirthday
     p_lunar_date = LunarDate.from_solar(p_solar_birthday.year, p_solar_birthday.month, p_solar_birthday.day)
 
@@ -40,7 +39,6 @@ class MyInfosController < ApplicationController
         year: p_lunar_date.year,
         month: p_lunar_date.month,
         day: p_lunar_date.day,
-        #윤달 구분
         is_leap_month: p_lunar_date.is_leap_month
       }
     }
@@ -49,7 +47,6 @@ class MyInfosController < ApplicationController
   # 내 정보를 반환
   # GET /my_infos/:id/non_p_fields
   def show_non_p_fields
-    # 사용자 생일 음력 변환
     user_solar_birthday = @my_info.birthday
     user_lunar_date = LunarDate.from_solar(user_solar_birthday.year, user_solar_birthday.month, user_solar_birthday.day)
 
@@ -62,9 +59,34 @@ class MyInfosController < ApplicationController
         year: user_lunar_date.year,
         month: user_lunar_date.month,
         day: user_lunar_date.day,
-        #윤달 정보를 반환
         is_leap_month: user_lunar_date.is_leap_month
       }
+    }
+  end
+
+  # 상대방의 사주를 반환한다.
+  # GET /my_infos/:id/p_saju
+  def show_p_saju
+    p_solar_birthday = @my_info.pBirthday
+    p_lunar_date = LunarDate.from_solar(p_solar_birthday.year, p_solar_birthday.month, p_solar_birthday.day)
+    p_saju = saju_for(p_lunar_date, @my_info.pBirthtime)
+
+    render json: {
+      pName: @my_info.pName,
+      p_saju: p_saju
+    }
+  end
+
+  # 내 사주를 반환한다.
+  # GET /my_infos/:id/user_saju
+  def show_user_saju
+    user_solar_birthday = @my_info.birthday
+    user_lunar_date = LunarDate.from_solar(user_solar_birthday.year, user_solar_birthday.month, user_solar_birthday.day)
+    user_saju = saju_for(user_lunar_date, @my_info.birthtime)
+
+    render json: {
+      gender: @my_info.gender,
+      user_saju: user_saju
     }
   end
 
