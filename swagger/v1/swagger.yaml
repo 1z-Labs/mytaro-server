@@ -1,0 +1,38 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/categories":
+    get:
+      summary: 카테고리 정보를 가져옵니다.
+      tags:
+      - Categories
+      responses:
+        '200':
+          description: 카테고리 정보를 가져옵니다.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    icon:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - icon
+        '404':
+          description: 카테고리를 찾을 수 없습니다.
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
