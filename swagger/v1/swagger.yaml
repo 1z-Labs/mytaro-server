@@ -8,7 +8,7 @@ paths:
     get:
       summary: 카테고리 정보를 가져옵니다.
       tags:
-        - Categories
+      - Categories
       responses:
         '200':
           description: 카테고리 정보를 가져옵니다.
@@ -26,16 +26,16 @@ paths:
                     icon:
                       type: string
                   required:
-                    - id
-                    - name
-                    - icon
+                  - id
+                  - name
+                  - icon
         '404':
           description: 카테고리를 찾을 수 없습니다.
   "/contents/popular":
     get:
       summary: 리뷰가 5개 이상인 컨텐츠 정보를 가져옵니다.
       tags:
-        - Contents
+      - Contents
       responses:
         '200':
           description: 리뷰가 5개 이상인 컨텐츠를 가져옵니다.
@@ -63,11 +63,11 @@ paths:
                     reviews_count:
                       type: integer
                   required:
-                    - id
-                    - title
-                    - imagePath
-                    - content
-                    - clover
+                  - id
+                  - title
+                  - imagePath
+                  - content
+                  - clover
         '404':
           description: 리뷰가 5개 이상인 컨텐츠가 없습니다.
           content:
@@ -81,14 +81,14 @@ paths:
     get:
       summary: 카테고리별 인기 많은 순으로 컨텐츠를 가져옵니다.
       tags:
-        - Contents
+      - Contents
       parameters:
-        - name: category_id
-          in: path
-          description: Category ID
-          required: true
-          schema:
-            type: string
+      - name: category_id
+        in: path
+        description: Category ID
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: contents found
@@ -116,28 +116,28 @@ paths:
                     review_count:
                       type: integer
                   required:
-                    - id
-                    - title
-                    - subtitle
-                    - description
-                    - imagePath
-                    - content
-                    - clover
-                    - review_count
+                  - id
+                  - title
+                  - subtitle
+                  - description
+                  - imagePath
+                  - content
+                  - clover
+                  - review_count
         '404':
           description: category not found
   "/contents/{id}":
     get:
       summary: 특정 컨텐츠 정보를 가져옵니다.
       tags:
-        - Contents
+      - Contents
       parameters:
-        - name: id
-          in: path
-          description: Content ID
-          required: true
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: Content ID
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: content found
@@ -161,18 +161,18 @@ paths:
                   clover:
                     type: integer
                 required:
-                  - id
-                  - title
-                  - imagePath
-                  - content
-                  - clover
+                - id
+                - title
+                - imagePath
+                - content
+                - clover
         '404':
           description: content not found
   "/contents/reviews":
     get:
       summary: 전체 컨텐츠를 리뷰 수 기준으로 가져옵니다.
       tags:
-        - Contents
+      - Contents
       responses:
         '200':
           description: 정렬된 컨텐츠를 가져옵니다.
@@ -200,21 +200,159 @@ paths:
                     review_count:
                       type: integer
                   required:
-                    - id
-                    - title
-                    - subtitle
-                    - description
-                    - imagePath
-                    - content
-                    - clover
-                    - review_count
+                  - id
+                  - title
+                  - subtitle
+                  - description
+                  - imagePath
+                  - content
+                  - clover
+                  - review_count
         '404':
           description: 콘텐츠가 없습니다.
+  "/contents/category/{category_id}":
+    get:
+      summary: 카테고리별로 모든 컨텐츠를 가져옵니다.
+      tags:
+      - Contents
+      parameters:
+      - name: category_id
+        in: path
+        description: Category ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: contents found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    subtitle:
+                      type: string
+                    description:
+                      type: string
+                    imagePath:
+                      type: string
+                    content:
+                      type: string
+                    clover:
+                      type: integer
+                  required:
+                  - id
+                  - title
+                  - subtitle
+                  - description
+                  - imagePath
+                  - content
+                  - clover
+        '404':
+          description: category not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  "/contents/{content_id}/preview":
+    get:
+      summary: 특정 컨텐츠의 프리뷰 이미지를 가져옵니다.
+      tags:
+      - Contents
+      parameters:
+      - name: content_id
+        in: path
+        description: Content ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 프리뷰 이미지를 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    imagePath:
+                      type: string
+                    contentId:
+                      type: string
+                  required:
+                  - id
+                  - imagePath
+                  - contentId
+        '404':
+          description: 프리뷰 이미지가 없습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  "/contents/{content_id}/chapter":
+    get:
+      summary: 특정 컨텐츠의 챕터 정보를 가져옵니다.
+      tags:
+      - Contents
+      parameters:
+      - name: content_id
+        in: path
+        description: Content ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 챕터 정보를 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    index:
+                      type: integer
+                    chapter_content:
+                      type: string
+                    contentId:
+                      type: string
+                  required:
+                  - id
+                  - index
+                  - chapter_content
+                  - contentId
+        '404':
+          description: 챕터 정보가 없습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
   "/my_infos":
     get:
       summary: 모든 my_infos 조회
       tags:
-        - MyInfos
+      - MyInfos
       responses:
         '200':
           description: 모든 my_infos 조회
@@ -227,7 +365,7 @@ paths:
     post:
       summary: my_info 생성
       tags:
-        - MyInfos
+      - MyInfos
       parameters: []
       responses:
         '201':
@@ -243,13 +381,13 @@ paths:
     get:
       summary: 특정 my_info를 조회
       tags:
-        - MyInfos
+      - MyInfos
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: 특정 my_info를 조회
@@ -267,17 +405,17 @@ paths:
                   error:
                     type: string
                 required:
-                  - error
+                - error
     delete:
       summary: my_info 삭제
       tags:
-        - MyInfos
+      - MyInfos
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '204':
           description: my_info 삭제
@@ -287,13 +425,13 @@ paths:
     get:
       summary: 특정 my_info의 답변을 조회
       tags:
-        - MyInfos
+      - MyInfos
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: 특정 my_info의 답변을 조회
@@ -307,8 +445,8 @@ paths:
                   answer:
                     type: string
                 required:
-                  - id
-                  - answer
+                - id
+                - answer
         '404':
           description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
           content:
@@ -319,18 +457,18 @@ paths:
                   error:
                     type: string
                 required:
-                  - error
+                - error
   "/my_infos/{id}/p_fields":
     get:
       summary: 상대방 정보 조회
       tags:
-        - MyInfos
+      - MyInfos
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: 상대방 정보 조회
@@ -358,15 +496,15 @@ paths:
                       is_leap_month:
                         type: boolean
                     required:
-                      - year
-                      - month
-                      - day
-                      - is_leap_month
+                    - year
+                    - month
+                    - day
+                    - is_leap_month
                 required:
-                  - pName
-                  - pBirthday
-                  - pBirthtime
-                  - p_lunar_birthday
+                - pName
+                - pBirthday
+                - pBirthtime
+                - p_lunar_birthday
         '404':
           description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
           content:
@@ -377,18 +515,18 @@ paths:
                   error:
                     type: string
                 required:
-                  - error
+                - error
   "/my_infos/{id}/non_p_fields":
     get:
       summary: 사용자 정보 조회
       tags:
-        - MyInfos
+      - MyInfos
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: 사용자 정보 조회
@@ -418,16 +556,16 @@ paths:
                       is_leap_month:
                         type: boolean
                     required:
-                      - year
-                      - month
-                      - day
-                      - is_leap_month
+                    - year
+                    - month
+                    - day
+                    - is_leap_month
                 required:
-                  - gender
-                  - birthday
-                  - birthtime
-                  - user_id
-                  - user_lunar_birthday
+                - gender
+                - birthday
+                - birthtime
+                - user_id
+                - user_lunar_birthday
         '404':
           description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
           content:
@@ -438,18 +576,18 @@ paths:
                   error:
                     type: string
                 required:
-                  - error
+                - error
   "/my_infos/{id}/p_saju":
     get:
       summary: 특정 my_info의 p_saju를 조회
       tags:
-        - MyInfos
+      - MyInfos
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: 특정 my_info의 p_saju를 조회
@@ -463,8 +601,8 @@ paths:
                   p_saju:
                     type: string
                 required:
-                  - pName
-                  - p_saju
+                - pName
+                - p_saju
         '404':
           description: my_info를 찾을 수 없을 경우 오류 메시지를 반환
           content:
@@ -475,18 +613,18 @@ paths:
                   error:
                     type: string
                 required:
-                  - error
+                - error
   "/my_infos/{id}/user_saju":
     get:
       summary: 사용자 정보 조회
       tags:
-        - MyInfos
+      - MyInfos
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: 사용자 정보 조회
@@ -500,8 +638,8 @@ paths:
                   user_saju:
                     type: string
                 required:
-                  - gender
-                  - user_saju
+                - gender
+                - user_saju
         '404':
           description: 사용자를 찾을 수 없는 경우 오류 반환
           content:
@@ -512,19 +650,19 @@ paths:
                   error:
                     type: string
                 required:
-                  - error
+                - error
   "/contents/{content_id}/reviews":
     parameters:
-      - name: content_id
-        in: path
-        description: Content ID
-        required: true
-        schema:
-          type: string
+    - name: content_id
+      in: path
+      description: Content ID
+      required: true
+      schema:
+        type: string
     get:
       summary: 해당 사주 컨텐츠의 리뷰 정보를 가져옵니다.
       tags:
-        - Reviews
+      - Reviews
       responses:
         '200':
           description: 해당 컨텐츠의 리뷰를 가져옵니다.
@@ -552,17 +690,17 @@ paths:
                       type: string
                       format: date-time
                   required:
-                    - id
-                    - review
-                    - author
-                    - contentId
-                    - authorId
-                    - created_at
-                    - updated_at
+                  - id
+                  - review
+                  - author
+                  - contentId
+                  - authorId
+                  - created_at
+                  - updated_at
         '404':
           description: 리뷰를 찾을 수 없습니다.
 servers:
-  - url: https://{defaultHost}
-    variables:
-      defaultHost:
-        default: www.example.com
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

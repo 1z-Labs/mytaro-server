@@ -178,4 +178,77 @@ RSpec.describe 'Contents API', type: :request do
       end
     end
   end
+
+  # 프리뷰 이미지 가져오기 API
+  path '/contents/{content_id}/preview' do
+    get '특정 컨텐츠의 프리뷰 이미지를 가져옵니다.' do
+      tags 'Contents'
+      produces 'application/json'
+      parameter name: :content_id, in: :path, type: :string, description: 'Content ID'
+
+      response '200', '프리뷰 이미지를 반환합니다.' do
+        schema type: :array,
+               items: {
+                 type: :object,
+                 properties: {
+                   id: { type: :string },
+                   imagePath: { type: :string },
+                   contentId: { type: :string }
+                 },
+                 required: ['id', 'imagePath', 'contentId']
+               }
+
+        run_test!
+      end
+
+      response '404', '프리뷰 이미지가 없습니다.' do
+        schema type: :object, properties: {
+          message: { type: :string }
+        }
+
+        let(:expected_response) { { message: '프리뷰 이미지가 없습니다.' }.to_json }
+
+        run_test! do |response|
+          expect(response.body).to eq(expected_response)
+        end
+      end
+    end
+  end
+
+  # 챕터 가져오기 API
+  path '/contents/{content_id}/chapter' do
+    get '특정 컨텐츠의 챕터 정보를 가져옵니다.' do
+      tags 'Contents'
+      produces 'application/json'
+      parameter name: :content_id, in: :path, type: :string, description: 'Content ID'
+
+      response '200', '챕터 정보를 반환합니다.' do
+        schema type: :array,
+               items: {
+                 type: :object,
+                 properties: {
+                   id: { type: :string },
+                   index: { type: :integer },
+                   chapter_content: { type: :string },
+                   contentId: { type: :string }
+                 },
+                 required: ['id', 'index', 'chapter_content', 'contentId']
+               }
+
+        run_test!
+      end
+
+      response '404', '챕터 정보가 없습니다.' do
+        schema type: :object, properties: {
+          message: { type: :string }
+        }
+
+        let(:expected_response) { { message: '챕터 정보가 없습니다.' }.to_json }
+
+        run_test! do |response|
+          expect(response.body).to eq(expected_response)
+        end
+      end
+    end
+  end
 end
