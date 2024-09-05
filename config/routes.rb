@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # 전체 콘텐츠를 리뷰 수에 따라 정렬하는 라우트
   get 'contents/reviews', to: 'contents#index_all_by_reviews'
 
+  get 'contents/:content_id/preview', to: 'contents#preview'
+  get 'contents/:content_id/chapter', to: 'contents#chapter'
+
   # category
   resources :categories, only: [:index]
 
