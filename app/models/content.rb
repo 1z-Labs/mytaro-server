@@ -3,6 +3,8 @@ class Content < ApplicationRecord
   before_create :generate_uuid
 
   has_many :reviews, foreign_key: 'contentId'
+  has_many :content_previews, foreign_key: 'contentId'
+  has_many :content_chapters, foreign_key: 'contentId'
   has_many :content_categories
   has_many :categories, through: :content_categories
 

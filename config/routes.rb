@@ -5,21 +5,25 @@ Rails.application.routes.draw do
   # 전체 콘텐츠를 리뷰 수에 따라 정렬하는 라우트
   get 'contents/reviews', to: 'contents#index_all_by_reviews'
 
-  # category
+  # 사주컨텐츠의 프리뷰이미지 / 목차를 가져오는 라우트
+  get 'contents/:content_id/preview', to: 'contents#preview'
+  get 'contents/:content_id/chapter', to: 'contents#chapter'
+
+  # 카테고리를 가져오는 라우트
   resources :categories, only: [:index]
 
   # 카테고리별로 모든 콘텐츠를 가져오는 라우트
   get 'contents/category/:category_id', to: 'contents#index_by_category'
 
-  # /contents/:contents_id/reviews
+  # 해당컨텐츠의 리뷰를 가져오는 라우트
   resources :contents, only: [:show] do
     resources :reviews, only:[:index]
   end
 
-  # /contents/popular
+  # 리뷰가 N개 이상인 인기컨텐츠를 가져오는
   get '/contents/popular', to: 'contents#popular'
 
-  # 카테고리 별 각 컨텐츠의 리뷰 순으로 나열하는 API
+  # 카테고리 별 각 컨텐츠의 리뷰를 기준으로 인기순 나열하여 정보를 가져오는 라우트
   get 'contents/category/:category_id/reviews', to: 'contents#index_by_reviews'
 
   resources :my_infos do
