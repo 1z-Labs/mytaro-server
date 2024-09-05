@@ -5,6 +5,7 @@ class MyInfosController < ApplicationController
 
   # GET /my_infos
   def index
+
     @my_infos = MyInfo.all
     render json: @my_infos
   end
@@ -88,12 +89,15 @@ class MyInfosController < ApplicationController
   # 내 사주를 반환한다.
   # GET /my_infos/:id/user_saju
   def show_user_saju
-    user_solar_birthday = @my_info.birthday
+    id = params[:id]
+    my_info = MyInfo.find_by(id: id)
+
+    user_solar_birthday = my_info.birthday
     user_lunar_date = LunarDate.from_solar(user_solar_birthday.year, user_solar_birthday.month, user_solar_birthday.day)
-    user_saju = saju_for(user_lunar_date, @my_info.birthtime)
+    user_saju = saju_for(user_lunar_date, my_info.birthtime)
 
     render json: {
-      gender: @my_info.gender,
+      gender: my_info.gender,
       user_saju: user_saju
     }
   end
