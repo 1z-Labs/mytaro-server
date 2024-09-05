@@ -1,4 +1,41 @@
 class ContentsController < ApplicationController
+  # 프리뷰 이미지 가져오기
+  def preview
+    # content_previews 테이블에서 직접 조회
+    previews = ContentPreview.where(contentId: params[:content_id])
+
+    if previews.empty?
+      head :not_found
+    else
+      render json: previews.map { |preview|
+        {
+          id: preview.id,
+          imagePath: preview.imagePath,
+          contentId: preview.contentId
+        }
+      }
+    end
+  end
+
+  def chapter
+    # content_chapters 테이블에서 직접 조회
+    chapters = ContentChapter.where(contentId: params[:content_id]).order(:index)
+
+    if chapters.empty?
+      head :not_found
+    else
+      render json: chapters.map { |chapter|
+        {
+          id: chapter.id,
+          index: chapter.index,
+          chapter_content: chapter.chapters,  # 챕터 내용을 반환
+          contentId: chapter.contentId
+        }
+      }
+    end
+  end
+
+
   def popular
     # 리뷰 수의 조건을 200으로 바꿀 것 (200개 이상의 후기가 증명! 컨테이너)
     contents = Content.joins(:reviews)
