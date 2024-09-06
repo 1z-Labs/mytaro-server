@@ -7,10 +7,10 @@ module SajuHelper
 
   def saju_for(lunar_date, birthtime)
     {
-      year: calculate_year(lunar_date.year),
-      month: calculate_month(lunar_date.month),
+      time: calculate_time(birthtime),
       day: calculate_day(lunar_date.day),
-      time: calculate_time(birthtime)
+      month: calculate_month(lunar_date.month),
+      year: calculate_year(lunar_date.year),
     }
   end
 

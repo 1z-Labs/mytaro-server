@@ -24,6 +24,9 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
+# Bind Puma to all IP addresses (0.0.0.0) so it can accept requests from external sources
+bind "tcp://0.0.0.0:#{ENV.fetch('PORT') { 3000 }}"
+
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked web server processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.
