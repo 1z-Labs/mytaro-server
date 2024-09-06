@@ -64,6 +64,7 @@ class MyInfosController < ApplicationController
       birthday: @my_info.birthday,
       birthtime: @my_info.birthtime,
       user_id: @my_info.user_id,
+      answer: @my_info.answer,
       user_lunar_birthday: {
         year: user_lunar_date.year,
         month: user_lunar_date.month,
