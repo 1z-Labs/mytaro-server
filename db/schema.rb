@@ -10,33 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_10_035619) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_10_045402) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "icon"
   end
 
   create_table "content_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "content_id"
+    t.bigint "content_id"
     t.bigint "category_id"
     t.index ["category_id"], name: "fk_rails_f84b713483"
+    t.index ["content_id"], name: "fk_rails_308cf77b4f"
   end
 
   create_table "content_chapters", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "index", null: false, auto_increment: true
     t.text "chapters", null: false
-    t.string "contentId", null: false
+    t.bigint "contentId", null: false
     t.index ["contentId"], name: "fk_rails_3b618988cb"
     t.index ["index"], name: "index", unique: true
   end
 
   create_table "content_previews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "imagePath", null: false
-    t.string "contentId", null: false
+    t.bigint "contentId", null: false
     t.index ["contentId"], name: "fk_rails_316931a2b9"
   end
 
-  create_table "contents", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "contents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.string "subtitle"
     t.string "description"
@@ -63,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_035619) do
   create_table "reviews", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "review"
     t.string "author"
-    t.string "contentId"
+    t.bigint "contentId"
     t.string "authorId"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_035619) do
   end
 
   add_foreign_key "content_categories", "categories"
+  add_foreign_key "content_categories", "contents"
   add_foreign_key "content_chapters", "contents", column: "contentId"
   add_foreign_key "content_previews", "contents", column: "contentId"
   add_foreign_key "my_infos", "users"
