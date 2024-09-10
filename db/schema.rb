@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_10_045402) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_10_060119) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "icon"
@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_045402) do
     t.index ["content_id"], name: "fk_rails_308cf77b4f"
   end
 
-  create_table "content_chapters", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "content_chapters", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "index", null: false, auto_increment: true
     t.text "chapters", null: false
     t.bigint "contentId", null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_045402) do
   create_table "contents", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.string "subtitle"
-    t.string "description"
+    t.text "description"
     t.string "imagePath", null: false
     t.string "content", null: false
     t.integer "clover", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_045402) do
     t.index ["user_id"], name: "fk_rails_d6e0031ebe"
   end
 
-  create_table "reviews", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "review"
     t.string "author"
     t.bigint "contentId"
