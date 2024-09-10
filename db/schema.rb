@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_10_033721) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_10_035619) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "icon"
@@ -18,9 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_033721) do
 
   create_table "content_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "content_id"
-    t.string "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint "category_id"
+    t.index ["category_id"], name: "fk_rails_f84b713483"
   end
 
   create_table "content_chapters", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -46,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_033721) do
     t.integer "clover", null: false
   end
 
-  create_table "my_infos", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "my_infos", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "gender"
     t.date "birthday"
     t.time "birthtime"
@@ -78,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_033721) do
     t.boolean "isBeforePurchased", default: false
   end
 
+  add_foreign_key "content_categories", "categories"
   add_foreign_key "content_chapters", "contents", column: "contentId"
   add_foreign_key "content_previews", "contents", column: "contentId"
   add_foreign_key "my_infos", "users"
