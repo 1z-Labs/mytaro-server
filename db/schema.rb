@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_10_055158) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_10_060119) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "icon"
@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_10_055158) do
     t.index ["content_id"], name: "fk_rails_308cf77b4f"
   end
 
-  create_table "content_chapters", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "content_chapters", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "index", null: false, auto_increment: true
     t.text "chapters", null: false
     t.bigint "contentId", null: false
