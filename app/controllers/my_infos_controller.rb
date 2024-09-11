@@ -1,11 +1,9 @@
-# app/controllers/my_infos_controller.rb
 class MyInfosController < ApplicationController
-  before_action :set_my_info, only: [:show, :destroy, :show_p_fields, :show_non_p_fields, :show_p_saju, :show_user_saju, :show_answer]
+  before_action :set_my_info, only: [:show, :update, :destroy, :show_p_fields, :show_non_p_fields, :show_p_saju, :show_user_saju, :show_answer]
   include SajuHelper  # Include the SajuHelper module
 
   # GET /my_infos
   def index
-
     @my_infos = MyInfo.all
     render json: @my_infos
   end
@@ -24,6 +22,15 @@ class MyInfosController < ApplicationController
   # GET /my_infos/:id
   def show
     render json: @my_info
+  end
+
+  # PATCH/PUT /my_infos/:id
+  def update
+    if @my_info.update(my_info_params)
+      render json: @my_info, status: :ok
+    else
+      render json: @my_info.errors, status: :unprocessable_entity
+    end
   end
 
   # GET /my_infos/:id/answer
